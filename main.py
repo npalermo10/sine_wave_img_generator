@@ -1,20 +1,30 @@
+import pdb
 from math import sin,pi
 import numpy as np
-
+import cv2
 
 class Wave():
     def __init__(self):
         self.resolution = 1000 # lower resolution if images taking too long to load
+        self.square_length = int(sqrt(2*self.resolution**2))
         self.clear_function()
         
-    def add_sinusoid(self, frequency):  ## frequency is in cycles/cm but it would be better to measure as cycles per degree.
-        x = np.linspace(0, 2*pi*5, self.resolution)
+    def add_sinusoid(self, frequency, orientation = 0):  ## frequency is in cycles/cm. Orientation is in degrees ccw
+        x = np.linspace(0, 2*pi*5, self.square_length)
         y = 128 * np.sin(x*(frequency*2)) + 128
-        self.cmp_wav_func += y
-
+        img = np.array([y]*self.square_length)
+        pdb.set_trace()
+        (rows, cols) = shape(img)
+        M = cv2.getRotationMatrix2D((cols/2,rows/2),orientation,1)
+        self.cmp_wav_func += cv2.warpAffine(img,M,(cols,rows))
+        
     def clear_function(self):
-        self.cmp_wav_func = np.zeros(self.resolution)
+        self.cmp_wav_func = np.zeros([self.square_length, self.square_length])
         
     def show_img(self):
-        img = [self.cmp_wav_func]*self.resolution
-        imshow(img, cmap='gray')
+        imshow(self.cmp_wav_func, cmap='gray')
+
+w = Wave()
+w.add_sinusoid(0.5, 90)
+w.add_sinusoid(3, 0)
+w.show_img()
