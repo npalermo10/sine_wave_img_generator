@@ -1,4 +1,3 @@
-import pdb
 from math import sin,pi
 import numpy as np
 import cv2
@@ -11,9 +10,8 @@ class Plaid():
         
     def add_sinusoid(self, frequency, orientation = 0):  ## frequency is in cycles/cm. Orientation is in degrees ccw
         x = np.linspace(0, 2*pi*5, self.square_length)
-        y = 127 * np.sin(x*(frequency*2))
+        y = 255 * np.sin(x*(frequency*2))
         img = np.array([y]*self.square_length)
-        pdb.set_trace()
         (rows, cols) = shape(img)
         M = cv2.getRotationMatrix2D((cols/2,rows/2),orientation,1)
         self.cmp_wav_func += cv2.warpAffine(img,M,(cols,rows))
