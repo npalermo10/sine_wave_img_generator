@@ -24,7 +24,7 @@ class Plaid():
     def show_img(self):
         imshow(self.cmp_wav_func, cmap='gray')
 
-w = Wave()
-w.add_sinusoid(0.5, 90)
-w.add_sinusoid(2, 0)
-w.show_img()
+p = Plaid()
+p.add_sinusoid(0.5, 90)
+p.add_sinusoid(2, 0)
+p.show_img()
