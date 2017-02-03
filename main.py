@@ -11,7 +11,7 @@ class Plaid():
         
     def add_sinusoid(self, frequency, orientation = 0):  ## frequency is in cycles/cm. Orientation is in degrees ccw
         x = np.linspace(0, 2*pi*5, self.square_length)
-        y = 128 * np.sin(x*(frequency*2)) + 128
+        y = 127 * np.sin(x*(frequency*2))
         img = np.array([y]*self.square_length)
         pdb.set_trace()
         (rows, cols) = shape(img)
