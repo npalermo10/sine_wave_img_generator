@@ -1,5 +1,5 @@
 import pdb
-from math import sin,pi
+from math import sin,pi,e
 import numpy as np
 import cv2
 from itertools import product
@@ -22,8 +22,10 @@ class Plaid():
         coordinates = np.array(list(product(xrange(self.length), xrange(self.length))))
         arr_diff = [np.array(item - arr_center) for item in coordinates]
         euc_dist = [np.linalg.norm(item) for item in arr_diff]
-        euc_dist_mat = np.reshape(euc_dist, (self.length, self.length))           
-
+        euc_dist_mat = np.reshape(euc_dist, (self.length, self.length)) ##this function gives a matrix of the euclidian distances of each pixel from the center
+        y = e**(-0.5 * ((x-(self.length-1)/2)/(0.5*(self.length-1)/2)))**2 ## this is the equation from wikipedia 
+        
+        
     def clear_plaid(self):
         self.cmp_wav_func = np.zeros([self.length, self.length])
 
